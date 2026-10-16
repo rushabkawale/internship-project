@@ -20,6 +20,7 @@ __pycache__/
 *.sqlite3
 
 # Streamlit secrets & logs
+**/.streamlit/secrets.toml
 .streamlit/secrets.toml
 
 # IDE & Editor settings
