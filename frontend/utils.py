@@ -8,8 +8,20 @@ import time
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from config import Config
 
-# Check Streamlit secrets or environment variable or Config
-API_BASE = os.getenv("API_BASE_URL") or getattr(st, "secrets", {}).get("API_BASE_URL", Config.API_BASE_URL)
+# Check Streamlit secrets or environment variable or Config safely
+def _get_api_base():
+    env_val = os.getenv("API_BASE_URL")
+    if env_val:
+        return env_val
+    try:
+        # st.secrets property raises StreamlitSecretNotFoundError if secrets.toml is missing
+        if "API_BASE_URL" in st.secrets:
+            return st.secrets["API_BASE_URL"]
+    except Exception:
+        pass
+    return getattr(Config, "API_BASE_URL", "http://127.0.0.1:5000/api")
+
+API_BASE = _get_api_base()
 
 # Auto-start Flask in background thread if running on cloud / single container without separate Flask process
 _FLASK_STARTED = False
