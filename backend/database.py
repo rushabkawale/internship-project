@@ -238,10 +238,6 @@ def init_db():
         ("Admin Manager", "admin@cravehub.com", "9123456789", "admin123", "Admin"),
         ("Kitchen Staff", "kitchen@cravehub.com", "9988776655", "kitchen123", "Kitchen"),
         ("Delivery Boy", "delivery@cravehub.com", "9900112233", "delivery123", "Delivery"),
-        ("Customer Demo", "customer@foodexpress.com", "9876543210", "pass123", "Customer"),
-        ("Admin Manager", "admin@foodexpress.com", "9123456789", "admin123", "Admin"),
-        ("Kitchen Staff", "kitchen@foodexpress.com", "9988776655", "kitchen123", "Kitchen"),
-        ("Delivery Boy", "delivery@foodexpress.com", "9900112233", "delivery123", "Delivery"),
     ]
     for u in staff_seed:
         cursor.execute(f"SELECT user_id FROM users WHERE email = {ph};", (u[1],))
